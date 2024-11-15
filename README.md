@@ -1,6 +1,8 @@
 Show data usage statistics for GEOME projects
 
-1. Download project data using the following script and save to `data/statistics.csv`
+Navigate to https://biocodellc.github.io/geome-statistics/ to view the latest data.
+
+Following is how we update data.  Run script and save data to `data/statistics.csv`.
 
 ```
 SELECT
