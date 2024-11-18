@@ -1,0 +1,89 @@
+config_id,config_name,worksheets,uniqueacrossprojectvalues,network_approved,samplecount,latestdatamodification
+2,Biocode,"Events, Samples","false, true",true,"155,276",2024-11-10 15:20:23.946997
+70,FuTRES,Samples,false,true,"149,174",2023-08-21 17:21:50.293588
+45,AmphibiaWeb's Disease Portal,Samples,false,true,"101,930",2024-11-01 07:23:09.144
+1,Diversity of the IndoPacific (DIPNet),Samples,false,true,"45,385",2024-11-11 11:19:56.912601
+6,Smithsonian Barcoding and Global Genome Initiative,Samples,false,true,"35,277",2024-11-15 16:57:51.934081
+15,Ira Moana,Samples,false,true,"2,381",2022-05-01 21:00:24.77766
+289,MytiSNP,Samples,false,true,753,2024-09-18 14:23:48.758721
+154,Reef Restoration and Adaptation Project (RRAP),Samples,false,true,603,2024-07-24 01:55:09.24701
+80,Datathon,Samples,false,false,"45,647",2024-05-30 09:44:29.205556
+5,Smithsonian BOEM Project,"Events, Samples",true,false,"25,439",2024-11-08 11:34:40.209628
+75,Synchronously Diverging Codistributed taxa,"Events, Samples, Tissues",false,false,"4,256",2021-08-09 19:05:44.851584
+9,Multi-sheet Generic,"Events, Samples, Tissues",true,false,"3,672",2021-06-07 08:15:23.330046
+57,1904 - Lake Erie walleye MSA,Samples,false,false,"1,821",2021-11-05 02:01:10.073081
+37,Emerson Lab2,"Events, Samples, Tissues",false,false,"1,786",2021-10-13 08:15:00.661022
+103,1912_MissR_RAD,Samples,false,false,"1,712",2020-11-04 17:40:24.567969
+171,genome skimming test project,Samples,false,false,"1,672",2024-06-18 08:04:14.390562
+78,1908 - GLFC walleye population genetics,Samples,false,false,"1,334",2023-11-13 07:19:35.833002
+123,Reservebenefit,Samples,false,false,"1,299",2022-05-02 02:01:26.711829
+275,DNA Reference Libraries of Aotearoa New Zealand,Samples,false,false,"1,222",2024-07-28 19:14:20.581011
+236,ISP Class Project,"Events, Samples",false,false,"1,183",2024-03-13 13:22:25.39418
+120,1910_LakeWhitefish,Samples,false,false,"1,156",2022-12-26 02:01:33.027877
+104,CanidPrey_MBC,Samples,false,false,"1,046",2021-06-07 08:17:53.223434
+285,Auckland Museum Tissue Archive,Samples,false,false,"1,016",2024-07-17 21:01:50.367273
+247,CoralScape,Samples,"false, true",false,972,2024-01-22 22:44:03.072068
+200,Perca Flavescens,Samples,"false, true",false,960,2022-11-17 02:01:42.417198
+201,Yellow Perch RadSeq data,Samples,"false, true",false,960,2022-08-25 12:13:59.642236
+163,"Inland cisco (Coregonus artedi) in Minnesota, Wisconsin, Indiana, & Michigan",Samples,false,false,850,2021-10-20 02:01:31.494679
+199,Museum für Naturkunde Berlin (MfN),Samples,"false, true",false,829,2022-10-14 05:49:57.263766
+137,Heritable traits separating lean and siscowet lake charr ecomorphs,Samples,false,false,742,2023-02-12 02:01:31.28352
+295,South Pacific giant clams,Samples,false,false,734,2024-09-25 17:21:36.869635
+195,Using genetic connectivity to improve source reef model outputs and predictions of recovery,Samples,false,false,702,2022-07-17 02:02:17.769226
+83,"Prevalence of Batrachochytrium dendrobatidis and Batrachochytrium salamandrivorans in thre Hoang Lien Range, northwest Vietnam",Samples,false,false,601,2020-07-16 16:05:20.857014
+59,johnfastqtest,Samples,false,false,589,2019-09-17 16:43:33.988911
+98,Boardman Lake eDNA metabarcoding,Samples,"false, true",false,528,2020-10-15 11:21:20.726663
+287,Experimental Ecklonia radiata reefs,Samples,false,false,424,2024-08-11 14:32:36.104732
+129,SI Pteropoda,"Events, Samples, Tissues","false, true",false,423,2021-07-14 06:19:28.267433
+93,eDNA 12S metabarcoding,Samples,false,false,359,2020-08-31 14:48:59.892882
+44,Low-coverage whole genome sequencing of Atlantic cod from the Gulf of Maine and surrounding regions,Samples,"false, true",false,333,2020-01-27 09:15:44.442172
+110,CoGeDiv,Samples,"false, true",false,300,2020-12-16 15:42:36.145956
+58,Walleye GT-seq -second trial,Samples,false,false,288,2019-09-17 13:27:35.405309
+128,CALeDNA_Ecological_Applications_2021,Samples,false,false,278,2021-02-16 05:47:07.085585
+197,Mulkanomics,Samples,"false, true",false,263,2023-04-04 01:45:31.517007
+160,Mediterranean lionfish,Samples,false,false,236,2023-01-16 21:08:28.354538
+175,NextRAD data for mesophotic Agaricia corals in the Southern Caribbean,Samples,"false, true",false,227,2022-02-05 02:01:12.335024
+142,"New level unlocked: Genomic identification of larval cisco (Coregonus artedi), kiyi (C. kiyi), and bloater (C. hoyi) open the door to demographic investigations of early life stages","Events, Samples, Tissues",false,false,202,2021-09-16 02:00:40.660438
+76,Spatial diversity in the barnacle Balanus glandula,Samples,false,false,175,2021-06-07 08:15:35.315197
+219,Saline shallow lakes 16S and 18S rRNA amplicon sequencing,Samples,false,false,145,2022-12-28 03:51:09.202654
+192,Illuiminating PRBiodiv,Samples,false,false,137,2022-07-11 16:09:54.736859
+169,Determinants of population genetic structure and demographic connectivity: a comparative study on coastal fishes,Samples,false,false,128,2021-11-10 03:32:56.999755
+67,Apostle Islands,Samples,"false, true",false,119,2020-01-12 15:08:58.780374
+226,john test of lionfish,Samples,false,false,118,2023-01-16 12:30:07.512798
+227,Pterois_miles_Mediterranean,Samples,false,false,118,2023-01-16 21:07:36.374036
+65,Asymmetrical gene-flow in five co-distributed syngnathids explained by ocean currents and rafting propensity,Samples,false,false,115,2019-12-11 16:35:57.994048
+270,Neopomacentrus cyanomos,Samples,false,false,100,2024-02-28 11:14:19.664894
+100,Tibetan Antelope_Microbiome_Hormone,Samples,false,false,97,2021-06-07 08:16:11.03792
+86,Identification and development of DNA barcodes on lobster (Panulirus spp.),"Events, Samples, Tissues",false,false,96,2021-06-07 08:16:05.273125
+182,Genome-wide genetic diversity may help identify fine-scale genetic structure among lake whitefish spawning groups in Lake Erie,Samples,false,false,96,2022-04-28 02:00:58.950445
+156,"Population connectivity of the New Zealand deep sea lobster, Metanephrops challengeri",Samples,false,false,93,2022-01-04 21:52:13.382893
+40,Bighorn_RAD_Parentage_2018,Samples,false,false,82,2019-07-24 00:41:00.422909
+168,Genomics of Lessepsian fishes,Samples,false,false,78,2021-11-08 02:00:46.91382
+51,Mexican_gray_wolf_RAD_Parentage_2018,Samples,false,false,76,2019-08-16 00:32:18.6163
+259,Amphiprion clarkii population genomics,Samples,"false, true",false,67,2024-05-23 07:24:09.287597
+215,Project1,Samples,false,false,64,2022-10-16 06:08:37.608428
+286,MIRe,"Events, Samples, Tissues","false, true",false,50,2024-08-27 13:52:41.577275
+162,Circadian gene expression of Argulus foliaceus,Samples,false,false,48,2021-10-07 11:35:02.478939
+50,Twin introductions by independent invader mussel lineages are both associated with recent admixture with a native congener in Australia,Samples,false,false,47,2019-10-21 09:58:25.19475
+92,Using multi-species seascape genomics to conserve areas of evolutionary importance,Samples,false,false,41,2020-08-25 05:17:39.851248
+223,The silver arowana genomes reveal genes involved in sex determination,Samples,false,false,38,2023-01-09 03:27:45.096789
+97,"Host-symbiont coevolution, cryptic structure, and bleaching susceptibility, in a coral species complex (Scleractinia; Poritidae).",Samples,false,false,33,2020-09-23 20:51:08.008503
+282,DNA Reference Library for Stygofauna of Aotearoa New Zealand,Samples,false,false,29,2024-06-26 15:33:55.308803
+193,Insects of California,"Events, Samples, Tissues","false, true",false,26,2024-05-08 11:04:57.190454
+221,Variation in genomic vulnerability to climate change across temperate populations of eelgrass (Zostera marina),Samples,false,false,23,2023-01-03 10:19:01.531031
+72,Cellana sp. ezRADseq from Mokumanamana - Hawaii 2012,Samples,"false, true",false,12,2020-02-20 12:47:06.526078
+172,john photo test project,Samples,false,false,12,2023-10-11 17:04:00.327549
+207,Demo data,Samples,"false, true",false,12,2022-09-14 02:39:16.528711
+209,Bidoup 2022,Samples,false,false,12,2022-09-14 06:55:20.470673
+278,Exeter Lab,Samples,false,false,12,2024-05-24 03:29:17.323972
+31,ITS,Samples,false,false,10,2019-07-10 16:29:16.749866
+108,Pre-introduction introgression contributes to parallel differentiation and contrasting hybridisation outcomes between invasive and native marine mussels,Samples,false,false,10,2021-12-03 02:00:36.345098
+60,Tropical sea anemone genomics,Samples,false,false,9,2019-09-18 14:27:50.872025
+290,Test silliman,"Events, Samples, Tissues",false,false,4,2024-09-18 10:34:22.986609
+88,test-sdc,"Events, Samples, Tissues",false,false,3,2020-08-19 16:17:46.85147
+279,MIR eDNA,"Events, Samples, Tissues","false, true",false,3,2024-05-31 13:42:23.624178
+125,Australian Amphibian and Reptile Genomics Project,Samples,false,false,2,2021-02-17 19:13:49.617253
+143,test project from scratch,Samples,false,false,2,2021-06-11 14:13:19.991111
+89,john test 2,Samples,false,false,1,2020-08-13 09:24:25.359383
+232,FAIR Island Flattened,Samples,false,false,1,2023-03-07 17:18:57.77189
+260,test photos,Samples,false,false,1,2023-10-11 16:45:37.610382
