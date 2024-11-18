@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration Statistics</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.default.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Configuration Statistics</h1>
+    <p>This table displays the unique configuration based on data from <strong>configstatistics.csv</strong>.</p>
+    <table class="table table-bordered tablesorter" id="configStatsTable">
+        <thead>
+            <tr>
+                <th>Network Approved</th>
+                <th>Name</th>
+                <th>Worksheets</th>
+                <th>Unique Across Project Values</th>
+                <th>Latest Data Modification</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const csvUrl = "https://raw.githubusercontent.com/biocodellc/geome-statistics/refs/heads/main/configstatistics.csv";
+
+        // Function to load and parse CSV data
+        function loadCSVData() {
+            Papa.parse(csvUrl, {
+                download: true,
+                header: true,
+                skipEmptyLines: true,
+                complete: function (results) {
+                    //console.log("CSV Data Loaded:", results.data);
+                    //console.log("CSV Parsing Errors:", results.errors);
+
+                    // Check if data is loaded and print the keys of the first row
+                    /*if (results.data.length > 0) {
+                        console.log("First Row Keys:", Object.keys(results.data[0]));
+                    }*/
+
+                    populateTable(results.data);
+
+                    // Initialize tablesorter with custom sorting
+                    $("#configStatsTable").tablesorter({
+                        sortList: [
+                            [0, 1],  // Sort by 'Network Approved' (Yes at top)
+                            [4, 1]   // Then by 'Sample Count' in descending order
+                        ]
+                    });
+                },
+                error: function (error) {
+                    console.error("Error loading CSV:", error);
+                    alert("Failed to load CSV data. Check the console for details.");
+                }
+            });
+        }
+
+        // Helper function to parse numbers safely
+        function parseNumber(value) {
+            return parseInt(value.replace(/,/g, ''), 10) || 0;
+        }
+
+        // Helper function to parse dates
+        function parseDate(dateString) {
+            const date = new Date(dateString);
+            return isNaN(date.getTime()) ? "N/A" : date.toISOString().split("T")[0];
+        }
+
+        // Populate the table with data
+        function populateTable(data) {
+            const tbody = $("#configStatsTable tbody");
+            tbody.empty();
+
+            data.forEach((row, index) => {
+                try {
+                    // Log the entire row for debugging
+                    //console.log("Processing Row:", row);
+
+                    const configName = row.name || row["name"] || "Unknown Configuration";
+                    const worksheets = row.worksheets || row["worksheets"] || "N/A";
+                    const uniqueAcrossProjectValues = row.uniqueacrossproject || row["uniqueacrossproject"] || "N/A";
+                    const networkApproved = (row.network_approved || row["network_approved"] || "").toLowerCase().trim() === "true" ? "Yes" : "No";
+                    const latestDataModification = parseDate(row.latest_modified || row["latest_modified"]);
+
+                    // Only display rows with a Sample Count greater than 0
+                    //if (sampleCount > 0) {
+                        const rowHtml = `
+                            <tr>
+                                <td>${networkApproved}</td>
+                                <td>${configName}</td>
+                                <td>${worksheets}</td>
+                                <td>${uniqueAcrossProjectValues}</td>
+                                <td>${latestDataModification}</td>
+                            </tr>
+                        `;
+                        tbody.append(rowHtml);
+                    //}
+                } catch (error) {
+                    console.error("Error processing row:", row, error);
+                }
+            });
+        }
+
+        // Load and process the CSV data
+        loadCSVData();
+    });
+</script>
+
+</body>
+</html>
+

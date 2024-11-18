@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Team Statistics</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/css/theme.default.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>GEOME project counts</h1>
+   
+    <h2>Teams (Network Approved)</h2>
+    <table class="table table-bordered tablesorter" id="teamTable">
+        <thead>
+            <tr>
+                <th>Team Name</th>
+                <th>Event Count</th>
+                <th>Sample Count</th>
+                <th>Diagnostics Count</th>
+                <th>Tissue Count</th>
+                <th>Sample Photo Count</th>
+                <th>Event Photo Count</th>
+                <th>Fasta Sequence Count</th>
+                <th>Fastq Metadata Count</th>
+                <th>Public Projects</th>
+                <th>Non-Public Projects</th>
+                <th>Latest Data Modification</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h2>Individual Projects</h2>
+    <table class="table table-bordered tablesorter" id="individualProjectsTable">
+        <thead>
+            <tr>
+                <th>Configuration Name</th>
+                <th>Event Count</th>
+                <th>Sample Count</th>
+                <th>Diagnostics Count</th>
+                <th>Tissue Count</th>
+                <th>Sample Photo Count</th>
+                <th>Event Photo Count</th>
+                <th>Fasta Sequence Count</th>
+                <th>Fastq Metadata Count</th>
+                <th>Public Projects</th>
+                <th>Non-Public Projects</th>
+                <th>Latest Data Modification</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const csvUrl = "https://raw.githubusercontent.com/biocodellc/geome-statistics/refs/heads/main/statistics.csv";
+
+        // Function to load and parse CSV data
+        function loadCSVData() {
+            Papa.parse(csvUrl, {
+                download: true,
+                header: true,
+                complete: function (results) {
+                    const data = results.data;
+                    const teamData = new Map();
+                    const individualProjectsData = new Map();
+
+                    // Helper function to parse numeric values safely
+                    function parseNumber(value) {
+                        return parseInt(value.replace(/,/g, ''), 10) || 0;
+                    }
+
+                    // Helper function to parse dates
+                    function parseDate(dateString) {
+                        return new Date(dateString) || new Date(0);
+                    }
+
+                    // Iterate over each row and aggregate counts by configId
+                    data.forEach(row => {
+                        const isApproved = (row.configNetworkApproved || "").toLowerCase().trim() === "true";
+                        const configId = row.configId || "Unknown ConfigId";
+                        const configName = row.configName || "Unknown Team";
+                        const isPublic = (row.public || "").toLowerCase().trim() === "true";
+                        const latestDate = parseDate(row.latestDataModification);                    
+
+                        // Determine which data map to use
+                        const targetMap = isApproved ? teamData : individualProjectsData;
+
+                        // Initialize or update the team's counts by configId
+                        if (!targetMap.has(configId)) {
+                            targetMap.set(configId, {
+                                configName: configName,
+                                EventCount: 0,
+                                SampleCount: 0,
+                                DiagnosticsCount: 0,
+                                TissueCount: 0,
+                                Sample_PhotoCount: 0,
+                                Event_PhotoCount: 0,
+                                fastaSequenceCount: 0,
+                                fastqMetadataCount: 0,
+                                publicProjects: new Set(),
+                                nonPublicProjects: new Set(),
+                                latestDataModification: new Date(0)
+                            });
+                        }
+
+                        // Get the current counts for the configId
+                        const currentCounts = targetMap.get(configId);
+
+                        // Safely parse numeric values and aggregate counts
+                        currentCounts.EventCount += parseNumber(row.EventCount || "0");
+                        currentCounts.SampleCount += parseNumber(row.SampleCount || "0");
+                        currentCounts.DiagnosticsCount += parseNumber(row.DiagnosticsCount || "0");
+                        currentCounts.TissueCount += parseNumber(row.TissueCount || "0");
+                        currentCounts.Sample_PhotoCount += parseNumber(row.Sample_PhotoCount || "0");
+                        currentCounts.Event_PhotoCount += parseNumber(row.Event_PhotoCount || "0");
+                        currentCounts.fastaSequenceCount += parseNumber(row.fastaSequenceCount || "0");
+                        currentCounts.fastqMetadataCount += parseNumber(row.fastqMetadataCount || "0");
+
+                        // Track unique public and non-public projects
+                        const projectId = row.projectId;
+                        if (isPublic) {
+                            currentCounts.publicProjects.add(projectId);
+                        } else {
+                            currentCounts.nonPublicProjects.add(projectId);
+                        }
+
+                        // Update the latest data modification date
+                        if (latestDate > currentCounts.latestDataModification) {
+                            currentCounts.latestDataModification = latestDate;
+                        }
+
+                        // Update the map with the new aggregated counts
+                        targetMap.set(configId, currentCounts);
+                    });
+
+                    // Filter out projects with zero counts in "Individual Projects"
+                    individualProjectsData.forEach((counts, configId) => {
+                        const totalCount = counts.EventCount + counts.SampleCount + counts.DiagnosticsCount +
+                                           counts.TissueCount + counts.Sample_PhotoCount + counts.Event_PhotoCount +
+                                           counts.fastaSequenceCount + counts.fastqMetadataCount;
+                        if (totalCount === 0) {
+                            individualProjectsData.delete(configId);
+                        }
+                    });
+
+                    // Populate tables with aggregated data
+                    populateTable('#teamTable tbody', teamData);
+                    populateTable('#individualProjectsTable tbody', individualProjectsData);
+
+                    // Initialize tablesorter and sort by Sample Count (descending)
+                    $("#teamTable, #individualProjectsTable").tablesorter({ sortList: [[2, 1]] });
+                }
+            });
+        }
+
+        // Helper function to populate tables
+        function populateTable(tableSelector, dataMap) {
+            $(tableSelector).empty();
+            dataMap.forEach((counts, configId) => {
+                const row = `
+                    <tr>
+                        <td>${counts.configName}</td>
+                        <td>${counts.EventCount}</td>
+                        <td>${counts.SampleCount}</td>
+                        <td>${counts.DiagnosticsCount}</td>
+                        <td>${counts.TissueCount}</td>
+                        <td>${counts.Sample_PhotoCount}</td>
+                        <td>${counts.Event_PhotoCount}</td>
+                        <td>${counts.fastaSequenceCount}</td>
+                        <td>${counts.fastqMetadataCount}</td>
+                        <td>${counts.publicProjects.size}</td>
+                        <td>${counts.nonPublicProjects.size}</td>
+                        <td>${counts.latestDataModification.toISOString().split('T')[0]}</td>
+                    </tr>
+                `;
+                $(tableSelector).append(row);
+            });
+        }
+
+        // Load and process the CSV data
+        loadCSVData();
+    });
+</script>
+
+</body>
+</html>

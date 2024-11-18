@@ -2,7 +2,7 @@ Show data usage statistics for GEOME projects
 
 Navigate to https://biocodellc.github.io/geome-statistics/ to view the latest data.
 
-Following is how we update data.  Run script and save data to `data/statistics.csv`.
+Run following script and save to: `data/statistics.csv` and then upload to github;
 
 ```
 SELECT
@@ -54,6 +54,47 @@ LEFT JOIN (
   SELECT project_id, count(*) as ct FROM network_1.fastqMetadata LEFT JOIN expeditions e ON e.id = network_1.fastqMetadata.expedition_id GROUP BY e.project_id
 ) AS fastqMetadata on fastqMetadata.project_id = p.id
  WHERE (p.discoverable = true OR p.public = true OR p.id in (SELECT project_id from user_projects AS up where up.user_id = 0)) ORDER BY lower(p.project_title)
+```
+
+Run following script and save to: `data/configstatistics.csv` and then upload to github:
+
+```
+SELECT
+    pc.id AS config_id,
+    -- Conditionally choose project title or config name
+    CASE 
+        WHEN pc.network_approved = true THEN pc.name
+        ELSE p.project_title
+    END AS name,
+    STRING_AGG(DISTINCT entity->>'worksheet', ', ') AS worksheets,
+    STRING_AGG(DISTINCT entity->>'uniqueAcrossProject', ', ') AS uniqueAcrossProject,
+    pc.network_approved,
+    MAX(p.modified) AS latest_modified -- Get the max date modified
+    --COALESCE(SUM(Sample.ct), 0) AS sample_count -- Aggregate sample count from the subquery
+FROM projects p
+JOIN project_configurations pc ON p.config_id = pc.id
+CROSS JOIN LATERAL jsonb_array_elements(pc.config->'entities') AS entity
+LEFT JOIN (
+    SELECT e.project_id, COUNT(DISTINCT s.id) AS ct
+    FROM network_1.Sample s
+    LEFT JOIN expeditions e ON e.id = s.expedition_id
+    GROUP BY e.project_id
+) Sample ON Sample.project_id = p.id
+WHERE entity->>'conceptAlias' IN ('Event', 'Sample', 'Tissue')
+GROUP BY
+    pc.id,
+    CASE 
+        WHEN pc.network_approved = true THEN pc.name
+        ELSE p.project_title
+    END,       
+    pc.network_approved
+HAVING 
+    COALESCE(SUM(Sample.ct), 0) > 0 -- Only include rows with a sample count greater than 0
+ORDER BY
+    pc.network_approved DESC,
+    latest_modified DESC,
+    pc.id;
+
 ```
 
 
